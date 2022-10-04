@@ -35,26 +35,30 @@ class LinkedList:
             return 'None'
 
     def bottomUp(self,percent):
-        index = int(self.size*(percent/100))
-        t = self.head #t คือ head ของ linkedlist
-        for i in range(index - 1):
-            t = t.next #t คือตัวที่จะตัดหรือตัวที่จะกลายเป็น tail สมมจว่าเป็น e1 ** t = e1
-        #ให้ตัวถัดไปของ tail ปัจจุบัน กลายเป็น head
-        self.tail.next = self.head  
-        #head -> e1 -> e2 -> e3 -> tail -> None กลายเป็น head -> e1 -> e2 -> e3 -> tail -> head -> e1 -> ... ซึ่งแบบนี้มันจะเป็น infinity loop
-        
-        #ให้ head คือตัวถัดไปของ t หรือก็คือ e2
-        self.head = t.next
-        #e0 -> e1 -> head -> e3 -> tail -> e0 -> e1 -> .....
+        if self.size*(percent/100) >= 1 :
+            index = round(self.size*(percent/100))
+        else :
+            index = 0
+        if index > 0:
+            t = self.head #t คือ head ของ linkedlist
+            for i in range(index - 1):
+                t = t.next #t คือตัวที่จะตัดหรือตัวที่จะกลายเป็น tail สมมจว่าเป็น e1 ** t = e1
+            #ให้ตัวถัดไปของ tail ปัจจุบัน กลายเป็น head
+            self.tail.next = self.head  
+            #head -> e1 -> e2 -> e3 -> tail -> None กลายเป็น head -> e1 -> e2 -> e3 -> tail -> head -> e1 -> ... ซึ่งแบบนี้มันจะเป็น infinity loop
+            
+            #ให้ head คือตัวถัดไปของ t หรือก็คือ e2
+            self.head = t.next
+            #e0 -> e1 -> head -> e3 -> tail -> e0 -> e1 -> .....
 
-        #ให้ tail คือ t หรือก็คือ e1 เพื่อให้มันเป็นตัวท้าย
-        self.tail = t
-        #head -> e3 -> e4 -> e0 -> tail -> head -> e3 -> e4 -> e0 -> tail -> ...
+            #ให้ tail คือ t หรือก็คือ e1 เพื่อให้มันเป็นตัวท้าย
+            self.tail = t
+            #head -> e3 -> e4 -> e0 -> tail -> head -> e3 -> e4 -> e0 -> tail -> ...
 
-        #ให้ตัวถัดไปของ tail เป็น None จะได้ไม่เป็น infinity loop
-        self.tail.next = None
-        #head -> e3 -> e4 -> e0 -> tail -> None
-        # e2  -> e3 -> e4 -> e0 ->  e1  -> None
+            #ให้ตัวถัดไปของ tail เป็น None จะได้ไม่เป็น infinity loop
+            self.tail.next = None
+            #head -> e3 -> e4 -> e0 -> tail -> None
+            # e2  -> e3 -> e4 -> e0 ->  e1  -> None
 
 inp = input("Input elements, Lift(Percent): ").split(',')
 list = inp[0].split(' ')
