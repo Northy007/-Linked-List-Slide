@@ -61,7 +61,18 @@ class LinkList: #แทนสมการ polynomial 1 สมการ
                     else :
                         t = t.next
                 if state != 1 :
-                    self.append(head.coef,head.expo)
+                    p = head
+                    head = head.next
+                    t = self.head
+                    if p.expo > self.head.expo:
+                        p.next = self.head
+                        self.head = p
+                    else :
+                        while t.next != None:
+                            if p.expo < t.expo:
+                                p.next = t.next
+                                t.next = p
+                            t = t.next
                 head = head.next
                     
 
