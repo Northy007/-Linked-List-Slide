@@ -51,16 +51,15 @@ class LinkList: #แทนสมการ polynomial 1 สมการ
             self.head = head
         else :
             while head != None:
-                state = 0
+                state = 0 #บอกว่าไม่มีพจน์ไหนที่บวกได้เลย
                 t = self.head
                 while t != None:
                     if t.expo == head.expo :
                         t.coef += head.coef
-                        state = 1
+                        state = 1 #เจอพจน์ที่บวกกันได้จากนั้นหยถด loop ไปตัวถัดไป
                         break
-                    else :
-                        t = t.next
-                if state != 1 :
+                    t = t.next
+                if state == 0 :
                     p = head
                     head = head.next
                     t = self.head
@@ -73,7 +72,8 @@ class LinkList: #แทนสมการ polynomial 1 สมการ
                                 p.next = t.next
                                 t.next = p
                             t = t.next
-                head = head.next
+                else :
+                    head = head.next
                     
 
 P = input("Enter P(x) : ").split(' + ') #coefficent 0 < x < 9 , exponect 0 < n < 9
@@ -101,9 +101,7 @@ for item in Q:
             n = item[:-1]
             Lq.append(int(n),1)
             
-print(Lp)
-print(Lq)
-Lp.addPolynomial(Lq.head)
+Lq.addPolynomial(Lp.head)
 
-print('P(x) + Q(x) = ' + Lp.__str__())
+print('P(x) + Q(x) = ' + Lq.__str__())
 
